@@ -45,7 +45,13 @@ async function getAssets(account, collection) {
     dataTable.innerHTML = "<tr>" + fieldsArray.map(x => "<th>" + x + "</th>") + "</tr>";
 
     allAssets.forEach(asset => {
-        var dataFields = fieldsArray.map(field => asset[field]);
+        var dataFields = fieldsArray.map(field => {
+            if (asset[field] != undefined) {
+                return asset[field];
+            }
+
+            return asset.data[field];
+        });
         var row = document.createElement("tr");
         dataFields.forEach(field => {
             var cell = document.createElement("td");
